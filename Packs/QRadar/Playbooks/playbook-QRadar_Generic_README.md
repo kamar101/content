@@ -7,8 +7,8 @@ This playbook uses the following sub-playbooks, integrations, and scripts.
 ### Sub-playbooks
 
 * Calculate Severity - Standard
-* QRadar - Get Offense Logs
 * Entity Enrichment - Generic v3
+* QRadar - Get Offense Logs
 
 ### Integrations
 
@@ -16,17 +16,17 @@ This playbook does not use any integrations.
 
 ### Scripts
 
-* GenerateInvestigationSummaryReport
 * AssignAnalystToIncident
+* GenerateInvestigationSummaryReport
 
 ### Commands
 
-* send-mail
-* extractIndicators
-* setIndicator
-* excludeIndicators
-* setIncident
 * closeInvestigation
+* excludeIndicators
+* extractIndicators
+* send-mail
+* setIncident
+* setIndicator
 
 ## Playbook Inputs
 
@@ -50,6 +50,16 @@ This playbook does not use any integrations.
 | Fields | A comma-separated list of extra fields to get from each event. You can use different fields or rename the existing fields. Used for the QRadar - Get Offense Logs subplaybook.<br/> | QIDNAME(qid), LOGSOURCENAME(logsourceid), CATEGORYNAME(highlevelcategory), CATEGORYNAME(category), PROTOCOLNAME(protocolid), sourceip, sourceport, destinationip, destinationport, QIDDESCRIPTION(qid), username, PROTOCOLNAME(protocolid), RULENAME("creEventList"), sourcegeographiclocation, sourceMAC, sourcev6, destinationgeographiclocation, destinationv6, LOGSOURCETYPENAME(devicetype), credibility, severity, magnitude, eventcount, eventDirection, postNatDestinationIP, postNatDestinationPort, postNatSourceIP, postNatSourcePort, preNatDestinationPort, preNatSourceIP, preNatSourcePort, UTF8(payload), starttime, devicetime | Optional |
 | IndicatorTag | The tag to provide for true positive indicators, for example to use the indicators in an EDL \(External Dynamic List\). | block | Optional |
 | ExcludeIndicatorsInXSOAR | If this value is not false, add indicators to the XSOAR exclude list. The excluded indicators won't be created in XSOAR anymore. | false | Optional |
+| ApiVersion | The API version for the timestamp format changes between versions | 17 | Optional |
+| InternalRange | A list of internal IP ranges to check IP addresses against. The comma-separated list should be provided in CIDR notation. For example, of a list of ranges would be: "172.16.0.0/12,10.0.0.0/8,192.168.0.0/16" \(without quotes\). |  | Optional |
+| Email | The email addresses to enrich | Account.Email.Address | Optional |
+| Hostname | The hostname to enrich | Endpoint.Hostname | Optional |
+| Username | The username to enrich | Account.Username | Optional |
+| ResolveIP | Determines whether the IP Enrichment - Generic playbook should convert IP addresses to hostnames using a DNS query. True - Resolves the IP addresses to hostnames. False - Does not resolve the IP addresses to hostnames. | False | Optional |
+| InternalDomains | A CSV list of internal domains. The list will be used to determine whether an email address is internal or external. |  | Optional |
+| URLSSLVerification | Whether to verify SSL certificates for URLs.<br/>Can be True or False. | False | Optional |
+| AccountDomain | Optional - This input is needed for the IAM-get-user command \(used in the Account Enrichment - IAM playbook\). Please provide the domain name that the user is related to.<br/>Example: @xsoar.com |  | Optional |
+| UseReputationCommand | Whether to verify SSL certificates for URLs.<br/>Can be True or False. | False | Optional |
 
 ## Playbook Outputs
 
